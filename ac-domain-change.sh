@@ -24,31 +24,32 @@ DESTINATION=$2
 for env in dev test prod; do
 	echo "Starting on move of hostnames from $SOURCE.$env to $DESTINATION.$env";
 	#  list hostnames in source
-	echo "Starting on $SOURCE.$env hostnames";
 	HOSTS=$(drush $SOURCE.$env ac-domain-list)
   #   for each hostname in source env
   while read -r host; do
   	hostname=${host:10}; # removes " name   :"
-  	if [[ $hostname != *"acquia-sites.com"* ]]; then
+  	if [[ $hostname != *"acquia-sites.com"* && $hostname != *"elb.amazonaws.com"* ]]; then
   		# remove hostname from source
-  		echo "Removing $hostname from $SOURCE.$env";
-  		drush $SOURCE.$env ac-domain-delete $hostname; 
-
+  		echo -e "\tRemoving $hostname from $SOURCE.$env";
+  		#remtaskid=$(drush $SOURCE.$env ac-domain-delete $hostname); 
+  		#echo $remtaskid
   		# add hostname to destination
-  		echo "Adding $hostname to $DESTINATION.$env";
-  		drush $DESTINATION.$env ac-domain-add $hostname; 
+  		echo -e "\tAdding $hostname to $DESTINATION.$env";
+  		#addtaskid=$(drush $DESTINATION.$env ac-domain-add $hostname);
+  		#echo $addtaskid; 
 	  fi
   done <<< "$HOSTS"
+  # list hostnames now on destination
   NEWHOSTS=$(drush $DESTINATION.$env ac-domain-list)
   echo "Finished moving hostnames from $SOURCE.$env to $DESTINATION.$env";
-  echo "Hostnames: "
+  echo -e "\tHostnames: "
   #   for each hostname in destination env
   while read -r host; do
   	hostname=${host:10}; # removes " name   :"
-  	if [[ $hostname != *"acquia-sites.com"* ]]; then
-  		echo "\t$hostname";
+  	if [[ $hostname != *"acquia-sites.com"* && $hostname != *"elb.amazonaws.com"* ]]; then
+  		echo -e "\t$hostname";
 	  fi
   done <<< "$NEWHOSTS"
-  echo "\n";
+  echo -e "\n";
 done
-echo "done."
+echo "Done."
