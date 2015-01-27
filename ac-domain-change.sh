@@ -32,11 +32,11 @@ for env in dev test prod; do
   	if [[ $hostname != *"acquia-sites.com"* ]]; then
   		# remove hostname from source
   		echo "Removing $hostname from $SOURCE.$env";
-  		#drush $SOURCE.$env ac-domain-delete $hostname; 
+  		drush $SOURCE.$env ac-domain-delete $hostname; 
 
   		# add hostname to destination
   		echo "Adding $hostname to $DESTINATION.$env";
-  		#drush $SOURCE.$env ac-domain-add $hostname; 
+  		drush $DESTINATION.$env ac-domain-add $hostname; 
 	  fi
   done <<< "$HOSTS"
   NEWHOSTS=$(drush $DESTINATION.$env ac-domain-list)
