@@ -10,7 +10,13 @@
 # To Do
 # list environments for source?
 # list environments for destination?
-# 
+#  
+# Arguments 
+#  - 1st argument source site group
+#  - 2nd argument destination site group
+#
+# ./ac-domain-change.sh @source @destination
+
 SOURCE=$1
 DESTINATION=$2
 
