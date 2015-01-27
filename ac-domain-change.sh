@@ -1,12 +1,13 @@
 #!/bin/bash
 #
-# move domains between subscriptions 
+# Move domains between Acquia Cloud subscriptions with Drush
 # 
 #
-# requires: drush, jq
-# you must be a team member on both subs
-# you must have permission in both teams to use cloudapi
+# Requires: drush, ac-api creds and site aliases
+#  - you must be a team member on both subs
+#  - you must have permission in both teams to use cloudapi
 
+# To Do
 # list environments for source?
 # list environments for destination?
 # 
