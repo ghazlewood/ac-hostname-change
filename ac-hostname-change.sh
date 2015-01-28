@@ -31,12 +31,12 @@ for env in dev test prod; do
   	if [[ $hostname != *"acquia-sites.com"* && $hostname != *"elb.amazonaws.com"* ]]; then
   		# remove hostname from source
   		echo -e "\tRemoving $hostname from $SOURCE.$env";
-  		#remtaskid=$(drush $SOURCE.$env ac-domain-delete $hostname); 
-  		#echo $remtaskid
+  		remtaskid=$(drush $SOURCE.$env ac-domain-delete $hostname); 
+  		echo $remtaskid
   		# add hostname to destination
   		echo -e "\tAdding $hostname to $DESTINATION.$env";
-  		#addtaskid=$(drush $DESTINATION.$env ac-domain-add $hostname);
-  		#echo $addtaskid; 
+  		addtaskid=$(drush $DESTINATION.$env ac-domain-add $hostname);
+  		echo $addtaskid; 
 	  fi
   done <<< "$HOSTS"
   # list hostnames now on destination
